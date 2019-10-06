@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/footapi
+    username: root
+    password: 1azerty.
+
+football-data-api:
+  basePath: https://api.football-data.org/v2/
+  apiKey: 5a2c20184d344d278b11894ab7e3ede1
