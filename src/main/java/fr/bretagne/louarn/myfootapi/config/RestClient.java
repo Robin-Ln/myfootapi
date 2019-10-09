@@ -16,13 +16,14 @@ public class RestClient {
 
     private FootballApiProperties footballApiProperties;
 
-    @Autowired
-    public RestClient(FootballApiProperties footballApiProperties) {
-        this.footballApiProperties = footballApiProperties;
-    }
+    private ObjectMapper objectMapper;
 
     @Autowired
-    ObjectMapper objectMapper;
+    public RestClient(FootballApiProperties footballApiProperties,
+                      ObjectMapper objectMapper) {
+        this.footballApiProperties = footballApiProperties;
+        this.objectMapper = objectMapper;
+    }
 
     @Primary
     @Bean(name = "footballApi")
