@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FootballDaoExeption extends Exception{
+public class FootballDaoExeption extends Exception {
 
     private FootballError footballError;
 

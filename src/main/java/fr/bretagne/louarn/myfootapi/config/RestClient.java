@@ -1,5 +1,6 @@
 package fr.bretagne.louarn.myfootapi.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.bretagne.louarn.myfootapi.config.properties.FootballApiProperties;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,6 +21,9 @@ public class RestClient {
         this.footballApiProperties = footballApiProperties;
     }
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @Primary
     @Bean(name = "footballApi")
     public Retrofit footballApi() {
@@ -34,7 +38,7 @@ public class RestClient {
                 .build();
         return new Retrofit.Builder()
                 .baseUrl(footballApiProperties.getBasePath())
-                .addConverterFactory(JacksonConverterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .client(httpClient)
                 .build();
     }
