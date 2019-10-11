@@ -20,7 +20,7 @@ public class MatcheDaoTest extends IntegrationTest {
 
     @Test
     public void searcheMatches() throws FootballDaoExeption, DaoExeption {
-        MatchesResponse matchesResponse = matcheDao.searcheMatches();
+        MatchesResponse matchesResponse = matcheDao.searcheMatches("FL1");
         log.info(matchesResponse);
         assertTrue(Objects.nonNull(matchesResponse));
     }

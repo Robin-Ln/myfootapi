@@ -13,8 +13,8 @@ import retrofit2.Response;
 public class MatcheDaoImpl extends AbstractFootballDao<MatcheRessource> implements IMatcheDao {
 
     @Override
-    public MatchesResponse searcheMatches() throws DaoExeption, FootballDaoExeption {
-        Response<MatchesResponse> response = execute(ressource.searcheMatches());
+    public MatchesResponse searcheMatches(String competition) throws DaoExeption, FootballDaoExeption {
+        Response<MatchesResponse> response = execute(ressource.searcheMatches(competition));
         return getOrElseThrow(response);
     }
 

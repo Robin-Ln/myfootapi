@@ -5,5 +5,5 @@ import fr.bretagne.louarn.myfootapi.exeption.DaoExeption;
 import fr.bretagne.louarn.myfootapi.exeption.football.FootballDaoExeption;
 
 public interface IMatcheDao {
-    MatchesResponse searcheMatches() throws DaoExeption, FootballDaoExeption;
+    MatchesResponse searcheMatches(String competition) throws DaoExeption, FootballDaoExeption;
 }
