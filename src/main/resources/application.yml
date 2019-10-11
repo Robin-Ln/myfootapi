@@ -1,2 +1,5 @@
-spring.profiles.active: @activatedProperties@
-springfox.documentation.swagger.v2.path: /carte/swagger.json
+spring:
+  profiles.active: @activatedProperties@
+  data.rest.basePath: /api
+
+springfox.documentation.swagger.v2.path: /swagger.json

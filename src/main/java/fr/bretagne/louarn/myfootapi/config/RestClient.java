@@ -14,9 +14,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @Configuration
 public class RestClient {
 
-    private FootballApiProperties footballApiProperties;
+    private final FootballApiProperties footballApiProperties;
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public RestClient(FootballApiProperties footballApiProperties,

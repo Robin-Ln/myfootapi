@@ -1,4 +1,4 @@
-package fr.bretagne.louarn.myfootapi.dao.football;
+package fr.bretagne.louarn.myfootapi.dao.football.impl;
 
 import fr.bretagne.louarn.myfootapi.exeption.football.FootballDaoExeption;
 import org.apache.commons.lang3.BooleanUtils;
@@ -16,7 +16,7 @@ public abstract class AbstractFootballDao<T> extends AbstractDao<T> {
         return retrofit;
     }
 
-    protected <R> R getOrElseThrow(Response<R> response) throws FootballDaoExeption {
+    <R> R getOrElseThrow(Response<R> response) throws FootballDaoExeption {
         if (BooleanUtils.isFalse(response.isSuccessful())) {
             throw new FootballDaoExeption();
         }

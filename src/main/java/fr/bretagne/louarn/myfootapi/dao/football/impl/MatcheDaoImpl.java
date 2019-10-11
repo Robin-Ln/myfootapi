@@ -1,6 +1,5 @@
 package fr.bretagne.louarn.myfootapi.dao.football.impl;
 
-import fr.bretagne.louarn.myfootapi.dao.football.AbstractFootballDao;
 import fr.bretagne.louarn.myfootapi.dao.football.IMatcheDao;
 import fr.bretagne.louarn.myfootapi.dao.football.modele.MatchesResponse;
 import fr.bretagne.louarn.myfootapi.dao.football.ressource.MatcheRessource;

@@ -1,4 +1,4 @@
-package fr.bretagne.louarn.myfootapi.dao.football;
+package fr.bretagne.louarn.myfootapi.dao.football.impl;
 
 import fr.bretagne.louarn.myfootapi.exeption.DaoExeption;
 import retrofit2.Call;
@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 
 public abstract class AbstractDao<T> {
 
-    protected T ressource;
+    T ressource;
 
     @PostConstruct
     public void init() {
@@ -20,7 +20,7 @@ public abstract class AbstractDao<T> {
 
     protected abstract Class<T> getClazz();
 
-    protected <R> Response<R> execute(Call<R> call) throws DaoExeption {
+    <R> Response<R> execute(Call<R> call) throws DaoExeption {
         try {
             return call.execute();
         } catch (Exception e) {
