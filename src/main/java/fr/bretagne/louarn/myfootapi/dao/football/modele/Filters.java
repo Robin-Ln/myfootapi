@@ -13,10 +13,15 @@ import java.time.LocalDate;
 @ToString
 public class Filters {
 
+    private Integer id;
+    private Integer matchday;
+    private Status status;
+    private Venue venue;
     private LocalDate dateFrom;
-
     private LocalDate dateTo;
-
+    private String stage;
+    private LocalDate season;
     private String permission;
-
+    private String plan;
+    private String limit;
 }

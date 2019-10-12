@@ -2,8 +2,8 @@ package fr.bretagne.louarn.myfootapi.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import fr.bretagne.louarn.myfootapi.mapper.LocalDateTimeSerializer;
-import fr.bretagne.louarn.myfootapi.mapper.LocalDatetimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -17,8 +17,8 @@ public class JacksonConfig {
     @Bean
     public SimpleModule simpleModule() {
         SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
-        simpleModule.addDeserializer(LocalDateTime.class, new LocalDatetimeDeserializer());
+        simpleModule.addSerializer(LocalDateTime.class, LocalDateTimeSerializer.INSTANCE);
+        simpleModule.addDeserializer(LocalDateTime.class, LocalDateTimeDeserializer.INSTANCE);
         return simpleModule;
     }
 
