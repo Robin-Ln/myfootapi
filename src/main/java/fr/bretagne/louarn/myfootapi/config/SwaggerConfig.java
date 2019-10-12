@@ -16,7 +16,7 @@ import java.util.Collections;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    private static final String CONTROLLERS_PACKAGE = "fr.bretagne.louarn.myfootapi.controller.impl";
+    private static final String CONTROLLERS_PACKAGE = "fr.bretagne.louarn.myfootapi.controller";
 
     @Bean
     public Docket api() {
