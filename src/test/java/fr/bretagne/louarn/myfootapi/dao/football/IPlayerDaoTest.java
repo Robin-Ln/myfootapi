@@ -8,9 +8,6 @@ import lombok.extern.log4j.Log4j;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import reactor.test.StepVerifier;
-
-import static org.junit.Assert.assertTrue;
 
 @Log4j
 public class IPlayerDaoTest extends IntegrationTest {
