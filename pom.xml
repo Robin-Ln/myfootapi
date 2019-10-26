@@ -29,9 +29,6 @@
             <properties>
                 <activatedProperties>gitlab</activatedProperties>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
     </profiles>
 
