@@ -17,8 +17,9 @@ stages:
 variables:
   MAVEN_CLI_OPTS: "--batch-mode"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-  MYSQL_DATABASE_NAME: "gitlab"
+  MYSQL_DATABASE: "gitlab"
   MYSQL_ROOT_PASSWORD: "gitlab"
+
 
 cache:
   paths:
@@ -30,15 +31,6 @@ build:
   image: maven:latest
   script:
     - mvn $MAVEN_CLI_OPTS clean compile
-
-connect:
-  stage: connect
-  image: mysql
-  before_script:
-    - mysql --version
-  script:
-    - mysql --user=root --password="$MYSQL_ROOT_PASSWORD"
-    - CREATE DATABASE $MYSQL_DATABASE_NAME;
 
 test:
   stage: test
