@@ -1,5 +1,13 @@
 image: maven:latest
 
+services:
+  - mysql:latest
+
+variables:
+  # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
+  MYSQL_DATABASE: "gitlab"
+  MYSQL_ROOT_PASSWORD: "gitlab"
+
 build:
   stage: build
   script:
