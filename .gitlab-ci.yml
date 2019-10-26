@@ -10,6 +10,8 @@ test:
     MYSQL_PASSWORD: gitlag
     MYSQL_DATABASE: gitlag
     MYSQL_ROOT_PASSWORD: gitlag
+    DB_HOST: mysql
+    DB_CONNECTION: mysql
   stage: test
   script:
     - mvn test
