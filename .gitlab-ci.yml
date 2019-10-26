@@ -1,25 +1,12 @@
-before_script:
-  - echo "Start !"
-
-after_script:
-  - echo "End !"
-
-services:
-  - mysql:latest
-
 stages:
   - build
-  - connect
   - test
   - package
   - deploy
 
 variables:
-  MAVEN_CLI_OPTS: "--batch-mode"
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
   MYSQL_DATABASE: "gitlab"
   MYSQL_ROOT_PASSWORD: "gitlab"
-
 
 cache:
   paths:
@@ -30,33 +17,25 @@ build:
   stage: build
   image: maven:latest
   script:
-    - mvn $MAVEN_CLI_OPTS clean compile
+    - mvn clean compile
 
 test:
   stage: test
   image: maven:latest
+  services:
+    - mysql:latest
   script:
-    - mvn $MAVEN_CLI_OPTS test
+    - mvn test
 
 package:
   stage: package
   image: maven:latest
   script:
-    - mvn $MAVEN_CLI_OPTS package
-  artifacts:
-    paths: [target/basecamp-0.0.1.war]
+    - mvn package
 
-
-deploy_test:
+deploy:
   stage: deploy
   script:
     - echo "########   To be defined   ########"
   environment: staging
 
-deploy_prod:
-  stage: deploy
-  script:
-    - echo "########   To be defined   ########"
-  only:
-    - master
-  environment: production
