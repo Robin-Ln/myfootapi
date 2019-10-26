@@ -4,7 +4,7 @@ spring:
     open-in-view: true
   datasource:
     url: jdbc:mysql://localhost:3306/gitlab
-    username: root
+    username: gitlag
     password: gitlab
 
 football-data-api:
