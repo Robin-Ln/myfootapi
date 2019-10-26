@@ -1,0 +1,17 @@
+stages:
+  - test
+
+image: maven:latest
+
+services:
+  - mysql:latest
+
+variables:
+  MYSQL_DATABASE: "gitlab"
+  MYSQL_ROOT_PASSWORD: "gitlab"
+  MAVEN_OPTION: "-P gitlab"
+
+test:
+  stage: test
+  script:
+    - mvn $MAVEN_OPTION clean compile test
