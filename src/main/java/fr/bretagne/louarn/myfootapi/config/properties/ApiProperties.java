@@ -1,4 +1,4 @@
-package fr.bretagne.louarn.myfootapi.config.modele;
+package fr.bretagne.louarn.myfootapi.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;
