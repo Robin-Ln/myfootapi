@@ -7,10 +7,10 @@ services:
   - mysql:latest
 
 variables:
-  MYSQL_DATABASE: "gitlag"
-  MYSQL_ROOT_PASSWORD: "gitlag"
+  MYSQL_DATABASE: "gitlab"
+  MYSQL_ROOT_PASSWORD: "gitlab"
 
 test:
   stage: test
   script:
-    - mvn test
+    - mvn clean compile test
