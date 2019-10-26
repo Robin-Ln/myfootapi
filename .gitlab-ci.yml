@@ -1,18 +1,15 @@
 stages:
   - test
 
-image: maven:latest
-
-services:
-  - mysql:latest
-
-variables:
-  MYSQL_USER: gitlag
-  MYSQL_PASSWORD: gitlag
-  MYSQL_DATABASE: gitlag
-  MYSQL_ROOT_PASSWORD: gitlag
-
 test:
+  image: maven:latest
+  services:
+    - mysql:latest
+  variables:
+    MYSQL_USER: gitlag
+    MYSQL_PASSWORD: gitlag
+    MYSQL_DATABASE: gitlag
+    MYSQL_ROOT_PASSWORD: gitlag
   stage: test
   script:
     - mvn test
