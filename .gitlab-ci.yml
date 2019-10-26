@@ -6,9 +6,6 @@ stages:
   - package
   - deploy
 
-services:
-  - mysql:latest
-
 variables:
   MYSQL_DATABASE: gitlab
   MYSQL_ROOT_PASSWORD: gitlab
@@ -20,6 +17,8 @@ build:
     - mvn clean compile
 
 test:
+  services:
+    - mysql:latest
   stage: test
   script:
     - mvn test
