@@ -1,4 +1,4 @@
-image: docker:lts
+image: java:8
 
 stages:
   - build
