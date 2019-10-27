@@ -34,7 +34,7 @@ deploy_rec:
     name: recette
   when: manual
   only:
-    - realise/*
+    - /^realise-.*
 
 deploy_prod:
   stage: deploy
