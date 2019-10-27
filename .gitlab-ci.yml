@@ -23,13 +23,17 @@ deploy_val:
     - echo "Deploy to validation server"
   environment:
     name: validation
+  when: manual
   only:
     - develop
+    - /^feature.*$/
+    - /^fix.*$/
 
 deploy_rec:
   stage: deploy
   script:
     - echo "Deploy to recette server"
+    - mvn --version
   environment:
     name: recette
   when: manual
