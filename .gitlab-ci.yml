@@ -19,6 +19,8 @@ test:
 
 deploy_val:
   stage: deploy
+  variables:
+    test: $TEST
   script:
     - echo "Deploy to validation server"
     - mvn --version
