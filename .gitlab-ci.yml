@@ -21,6 +21,7 @@ deploy_val:
   stage: deploy
   script:
     - echo "Deploy to validation server"
+    - mvn --version
   environment:
     name: validation
   when: manual
