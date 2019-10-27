@@ -1,5 +1,6 @@
 stages:
   - test
+  - deploy
 
 image: maven:latest
 
@@ -14,4 +15,33 @@ variables:
 test:
   stage: test
   script:
-    - mvn $MAVEN_OPTION clean compile test
+    - mvn $MAVEN_OPTION test
+
+deploy_val:
+  stage: deploy
+  script:
+    - echo "Deploy to validation server"
+  environment:
+    name: validation
+  only:
+    - develop
+
+deploy_rec:
+  stage: deploy
+  script:
+    - echo "Deploy to recette server"
+  environment:
+    name: recette
+  when: manual
+  only:
+    - realise/*
+
+deploy_prod:
+  stage: deploy
+  script:
+    - echo "Deploy to production server"
+  environment:
+    name: production
+  when: manual
+  only:
+    - master
