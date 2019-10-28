@@ -1,8 +1,16 @@
 stages:
   - test
+  - compile
+#  - create
+#  - push
+#  - pull
   - deploy
 
 image: maven:latest
+
+cache:
+  paths:
+    - .m2/repository
 
 services:
   - mysql:latest
@@ -11,6 +19,11 @@ variables:
   MYSQL_DATABASE: "gitlab"
   MYSQL_ROOT_PASSWORD: "gitlab"
   MAVEN_OPTION: "-P gitlab"
+
+compile:
+  stage: compile
+  script:
+    - mvn $MAVEN_OPTION compile
 
 test:
   stage: test
