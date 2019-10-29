@@ -6,8 +6,8 @@ stages:
 
 cache:
   paths:
-    - .m2/repository
-    - target
+    - .m2/
+    - target/
 
 services:
   - mysql:latest
@@ -15,7 +15,7 @@ services:
 variables:
   MYSQL_DATABASE: "gitlab"
   MYSQL_ROOT_PASSWORD: "gitlab"
-  MAVEN_OPTION: "-P gitlab"
+  MAVEN_OPTION: "-Dmaven.repo.local=.m2 -P gitlab"
 
 compile:
   stage: compile
