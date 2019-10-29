@@ -7,7 +7,7 @@ stages:
 cache:
   paths:
     - .m2/repository
-    - targer
+    - target
 
 services:
   - mysql:latest
@@ -36,11 +36,9 @@ build:
     - mvn $MAVEN_OPTION package
 
 create_image:
-  stage: create
+  stage: create_image
   image: docker:latest
   script:
     - docker build -t app -f docker/Dockerfile .
-  environment:
-    name: recette
   only:
     - /^release.*$/
