@@ -20,15 +20,15 @@ variables:
   MYSQL_ROOT_PASSWORD: "gitlab"
   MAVEN_OPTION: "-Dmaven.repo.local=.m2 -P gitlab"
 
-compile:
-  stage: compile
-  script:
-    - mvn $MAVEN_OPTION compile
-
-test:
-  stage: test
-  script:
-    - mvn $MAVEN_OPTION test
+#compile:
+#  stage: compile
+#  script:
+#    - mvn $MAVEN_OPTION compile
+#
+#test:
+#  stage: test
+#  script:
+#    - mvn $MAVEN_OPTION test
 
 build:
   stage: build
