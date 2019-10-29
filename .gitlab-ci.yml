@@ -1,3 +1,5 @@
+image: maven:latest
+
 stages:
   - compile
   - test
@@ -11,6 +13,7 @@ cache:
 
 services:
   - mysql:latest
+  - docker:latest
 
 variables:
   MYSQL_DATABASE: "gitlab"
@@ -19,19 +22,16 @@ variables:
 
 compile:
   stage: compile
-  image: maven:latest
   script:
     - mvn $MAVEN_OPTION compile
 
 test:
   stage: test
-  image: maven:latest
   script:
     - mvn $MAVEN_OPTION test
 
 build:
   stage: build
-  image: maven:latest
   script:
     - mvn $MAVEN_OPTION package
   artifacts:
@@ -40,6 +40,5 @@ build:
 
 create_image:
   stage: create_image
-  image: docker:latest
   script:
     - docker build -t app -f docker/Dockerfile .
