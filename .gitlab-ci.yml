@@ -1,8 +1,8 @@
 image: maven:latest
 
 stages:
-  - compile
-  - test
+#  - compile
+#  - test
   - build
   - create_image
 
