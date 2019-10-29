@@ -34,11 +34,12 @@ build:
   image: maven:latest
   script:
     - mvn $MAVEN_OPTION package
+  artifacts:
+    name: targer/app.jar
+    expire_in: 30 days
 
 create_image:
   stage: create_image
   image: docker:latest
   script:
     - docker build -t app -f docker/Dockerfile .
-  only:
-    - /^release.*$/
