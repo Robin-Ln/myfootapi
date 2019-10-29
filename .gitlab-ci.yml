@@ -1,16 +1,13 @@
 stages:
   - compile
   - test
-#  - create
-#  - push
-#  - pull
-  - deploy
-
-image: maven:latest
+  - build
+  - create_image
 
 cache:
   paths:
     - .m2/repository
+    - targer
 
 services:
   - mysql:latest
@@ -22,47 +19,28 @@ variables:
 
 compile:
   stage: compile
+  image: maven:latest
   script:
     - mvn $MAVEN_OPTION compile
 
 test:
   stage: test
+  image: maven:latest
   script:
     - mvn $MAVEN_OPTION test
 
-deploy_val:
-  stage: deploy
-  variables:
-    test: $TEST
+build:
+  stage: build
+  image: maven:latest
   script:
-    - echo $test
-    - echo "Deploy to validation server"
-    - mvn --version
-  environment:
-    name: validation
-  when: manual
-  only:
-    - develop
-    - /^feature.*$/
-    - /^fix.*$/
+    - mvn $MAVEN_OPTION package
 
-deploy_rec:
-  stage: deploy
+create_image:
+  stage: create
+  image: docker:latest
   script:
-    - echo "Deploy to recette server"
-    - mvn --version
+    - docker build -t app -f docker/Dockerfile .
   environment:
     name: recette
-  when: manual
   only:
     - /^release.*$/
-
-deploy_prod:
-  stage: deploy
-  script:
-    - echo "Deploy to production server"
-  environment:
-    name: production
-  when: manual
-  only:
-    - master
