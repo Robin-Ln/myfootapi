@@ -1,47 +1,57 @@
-stages:
-  - test
-  - deploy
-
 image: maven:latest
 
-services:
-  - mysql:latest
+stages:
+  - compile
+  - test
+
+cache:
+  paths:
+    - .m2/
+    - target/
 
 variables:
-  MYSQL_DATABASE: "gitlab"
-  MYSQL_ROOT_PASSWORD: "gitlab"
-  MAVEN_OPTION: "-P gitlab"
+  BUILD_VERSION: ""
+
+compile:
+  stage: compile
+  script:
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true compile
 
 test:
   stage: test
+  services:
+    - mysql:latest
+  variables:
+    MYSQL_DATABASE: "gitlab"
+    MYSQL_ROOT_PASSWORD: "gitlab"
   script:
-    - mvn $MAVEN_OPTION test
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab test
 
-deploy_val:
-  stage: deploy
-  script:
-    - echo "Deploy to validation server"
-  environment:
-    name: validation
-  only:
-    - develop
-
-deploy_rec:
-  stage: deploy
-  script:
-    - echo "Deploy to recette server"
-  environment:
-    name: recette
-  when: manual
-  only:
-    - realise/*
-
-deploy_prod:
-  stage: deploy
-  script:
-    - echo "Deploy to production server"
-  environment:
-    name: production
-  when: manual
-  only:
-    - master
+#build:
+#  stage: build
+#  script:
+#    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true clean package
+#    - BUILD_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+#  artifacts:
+#    paths:
+#     - target/${APP_NAME}-${BUILD_VERSION}.jar
+#    expire_in: 30 days
+#
+#create_image:
+#  image: docker:latest
+#  stage: create_image
+#  services:
+#    - docker:dind
+#
+#  when: manual
+#  before_script:
+#    - docker login -u robinln -p 220090Atm22!
+#  script:
+#    - echo $BUILD_VERSION
+#    - docker build \
+#      --build-arg BUILD_VERSION=$BUILD_VERSION \
+#      --build-arg APP_NAME="myFootApi" \
+#      -t app \
+#      -f docker/Dockerfile .
+#    - docker tag app robinln/my-foot-api:${BUILD_VERSION}
+#    - docker push robinln/my-foot-api:${BUILD_VERSION}
