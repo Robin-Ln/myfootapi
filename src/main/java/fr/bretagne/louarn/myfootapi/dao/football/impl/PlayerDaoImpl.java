@@ -13,7 +13,7 @@ public class PlayerDaoImpl extends AbstractFootballDao<PlayerRessource> implemen
 
     @Override
     public Player findPlayerById(Integer id) throws DaoExeption, FootballDaoExeption {
-        Response<Player> response = execute(ressource.findPlayerById(id));
+        Response<Player> response = execute(ressource.findPlayerById(id,"test1","test2","test3"));
         return getOrElseThrow(response);
     }
 
