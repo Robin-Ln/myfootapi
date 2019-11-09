@@ -3,7 +3,8 @@ image: maven:latest
 stages:
   - compile
   - test
-  - build
+  - jar
+  - image_docker
 
 cache:
   paths:
@@ -26,7 +27,7 @@ test:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab test
 
 jar:
-  stage: build
+  stage: jar
   variables:
     - BUILD_FILE_NAME: ""
   script:
@@ -38,7 +39,7 @@ jar:
     expire_in: 30 days
 
 image_docker:
-  stage: build
+  stage: image_docker
   when: manual
   services:
     - docker:dind
