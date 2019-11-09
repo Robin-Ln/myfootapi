@@ -38,9 +38,7 @@ public class RestClient {
         // Création du logger
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(log::info);
         httpLoggingInterceptor.level(footballApiProperties.getLevel());
-        // TODO : faire cette configiration dans un fichier de properties
         httpLoggingInterceptor.redactHeader(API_KEY);
-
         OkHttpClient httpClient = new OkHttpClient
                 .Builder()
                 .addInterceptor(chain -> {
@@ -51,6 +49,7 @@ public class RestClient {
                 })
                 // Ajout d'un logger
                 .addInterceptor(httpLoggingInterceptor)
+                //.addInterceptor(new LoggingInterceptor(HttpLoggingInterceptor.Level.BODY, log::info))
                 .build();
         return new Retrofit.Builder()
                 .baseUrl(footballApiProperties.getBasePath())

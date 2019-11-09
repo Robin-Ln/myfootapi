@@ -1,47 +1,45 @@
-stages:
-  - test
-  - deploy
-
 image: maven:latest
 
-services:
-  - mysql:latest
+stages:
+  - compile
+  - test
+  - build
 
-variables:
-  MYSQL_DATABASE: "gitlab"
-  MYSQL_ROOT_PASSWORD: "gitlab"
-  MAVEN_OPTION: "-P gitlab"
+cache:
+  paths:
+    - .m2/
+    - target/
+
+compile:
+  stage: compile
+  script:
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true compile
 
 test:
   stage: test
+  services:
+    - mysql:latest
+  variables:
+    MYSQL_DATABASE: "gitlab"
+    MYSQL_ROOT_PASSWORD: "gitlab"
   script:
-    - mvn $MAVEN_OPTION test
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab test
 
-deploy_val:
-  stage: deploy
+jar:
+  stage: build
   script:
-    - echo "Deploy to validation server"
-  environment:
-    name: validation
-  only:
-    - develop
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
+  artifacts:
+    paths:
+      - target/*.jar
+      - varrables
+    expire_in: 30 days
 
-deploy_rec:
-  stage: deploy
-  script:
-    - echo "Deploy to recette server"
-  environment:
-    name: recette
+image_docker:
+  stage: build
   when: manual
-  only:
-    - /^realise.*$/
-
-deploy_prod:
-  stage: deploy
+  services:
+    - docker:dind
   script:
-    - echo "Deploy to production server"
-  environment:
-    name: production
-  when: manual
-  only:
-    - master
+    - export DOCKER_HOST=tcp://docker:2375
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true install
