@@ -3,9 +3,9 @@ spring:
     hibernate.ddl-auto: create
     open-in-view: true
   datasource:
-    url: jdbc:mysql://mysql:3306/gitlab
+    url: jdbc:mysql://mysql:3306/footapi
     username: root
-    password: gitlab
+    password: 1azerty.
 
 football-data-api:
   basePath: https://api.football-data.org/v2/
