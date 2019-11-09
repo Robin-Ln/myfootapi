@@ -35,8 +35,7 @@
     <properties>
         <java.version>11</java.version>
         <docker.repository.prefix>robinln</docker.repository.prefix>
-        <docker.username>robinln</docker.username>
-        <docker.password>220090Atm22!</docker.password>
+        <docker.token>c51bdbaf-babe-4ba5-b1ff-452b1a86e5a8</docker.token>
     </properties>
 
     <dependencies>
@@ -196,8 +195,8 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.9</version>
                 <configuration>
-                    <username>${docker.username}</username>
-                    <password>${docker.password}</password>
+                    <username>${docker.repository.prefix}</username>
+                    <password>${docker.token}</password>
                     <repository>${docker.repository.prefix}/${project.artifactId}</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
