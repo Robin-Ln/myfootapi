@@ -17,7 +17,6 @@ public class IPlayerDaoTest extends IntegrationTest {
 
     @Test
     public void findPlayer() throws FootballDaoExeption, DaoExeption {
-        playerDao.findPlayerById(54);
         Assertions.assertThat(playerDao.findPlayerById(54))
                 .extracting(Player::getId)
                 .isEqualTo(54);

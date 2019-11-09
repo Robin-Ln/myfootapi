@@ -3,19 +3,17 @@ image: maven:latest
 stages:
   - compile
   - test
+  - build
 
 cache:
   paths:
     - .m2/
     - target/
 
-variables:
-  BUILD_VERSION: ""
-
 compile:
   stage: compile
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true compile
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true compile
 
 test:
   stage: test
@@ -27,31 +25,21 @@ test:
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab test
 
-#build:
-#  stage: build
-#  script:
-#    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true clean package
-#    - BUILD_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-#  artifacts:
-#    paths:
-#     - target/${APP_NAME}-${BUILD_VERSION}.jar
-#    expire_in: 30 days
-#
-#create_image:
-#  image: docker:latest
-#  stage: create_image
-#  services:
-#    - docker:dind
-#
-#  when: manual
-#  before_script:
-#    - docker login -u robinln -p 220090Atm22!
-#  script:
-#    - echo $BUILD_VERSION
-#    - docker build \
-#      --build-arg BUILD_VERSION=$BUILD_VERSION \
-#      --build-arg APP_NAME="myFootApi" \
-#      -t app \
-#      -f docker/Dockerfile .
-#    - docker tag app robinln/my-foot-api:${BUILD_VERSION}
-#    - docker push robinln/my-foot-api:${BUILD_VERSION}
+jar:
+  stage: build
+  script:
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
+  artifacts:
+    paths:
+      - target/*.jar
+      - varrables
+    expire_in: 30 days
+
+image_docker:
+  stage: build
+  when: manual
+  services:
+    - docker:dind
+  script:
+    - export DOCKER_HOST=tcp://docker:2375
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true install
