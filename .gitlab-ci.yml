@@ -13,8 +13,7 @@ cache:
 compile:
   stage: compile
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true \
-      compile
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true compile
 
 test:
   stage: test
@@ -24,17 +23,12 @@ test:
     MYSQL_DATABASE: "gitlab"
     MYSQL_ROOT_PASSWORD: "gitlab"
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab \
-      test
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab test
 
 build:
   stage: build
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true \
-      clean \
-      package \
-      dockerfile:build \
-      dockerfile:push
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true clean package dockerfile:build dockerfile:push
   artifacts:
     paths:
      - target/${APP_NAME}-${BUILD_VERSION}.jar
