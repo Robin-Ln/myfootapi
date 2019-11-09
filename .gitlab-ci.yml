@@ -3,7 +3,7 @@ image: maven:latest
 stages:
   - compile
   - test
-  - buid
+  - build
 
 cache:
   paths:
