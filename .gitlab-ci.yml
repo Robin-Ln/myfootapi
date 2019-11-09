@@ -25,17 +25,17 @@ test:
   script:
     - mvn -Dmaven.repo.local=.m2 -Dspring.profiles.active=gitlab --batch-mode test
 
-jar:
+build_jar:
   stage: build
+  when: manual
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
   artifacts:
     paths:
       - target/*.jar
-      - varrables
     expire_in: 30 days
 
-image_docker:
+build_image:
   stage: build
   when: manual
   services:
