@@ -33,6 +33,7 @@ build:
 build_jar:
   stage: build
   when: manual
+  needs: test
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
   artifacts:
@@ -43,6 +44,7 @@ build_jar:
 build_image:
   stage: build
   when: manual
+  needs: test
   services:
     - docker:dind
   script:
