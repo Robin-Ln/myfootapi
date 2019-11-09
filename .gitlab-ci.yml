@@ -5,9 +5,6 @@ stages:
   - test
   - build
 
-variables:
-  BUILD_FILE_NAME: ""
-
 cache:
   paths:
     - .m2/
@@ -32,13 +29,10 @@ jar:
   stage: build
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
-    - BUILD_FILE_NAME=$(mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout)
-    - ls target/${BUILD_FILE_NAME}.jar
-    - ls target
-    - echo target/${BUILD_FILE_NAME}.jar
   artifacts:
     paths:
-     - target/${BUILD_FILE_NAME}.jar
+      - target/*.jar
+      - varrables
     expire_in: 30 days
 
 image_docker:
