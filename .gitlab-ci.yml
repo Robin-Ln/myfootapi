@@ -5,6 +5,9 @@ stages:
   - test
   - build
 
+variables:
+  BUILD_FILE_NAME: ""
+
 cache:
   paths:
     - .m2/
@@ -27,12 +30,9 @@ test:
 
 jar:
   stage: build
-  variables:
-    BUILD_FILE_NAME: ""
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
     - BUILD_FILE_NAME=$(mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout)
-    - echo ${BUILD_FILE_NAME}.jar
   artifacts:
     paths:
      - target/${BUILD_FILE_NAME}.jar
