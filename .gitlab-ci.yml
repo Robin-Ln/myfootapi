@@ -25,6 +25,11 @@ test:
   script:
     - mvn -Dmaven.repo.local=.m2 -Dspring.profiles.active=gitlab --batch-mode test
 
+build:
+  stage: build
+  script:
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
+
 build_jar:
   stage: build
   when: manual
