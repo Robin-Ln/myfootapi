@@ -28,4 +28,4 @@ test:
 build:
   stage: build
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true clean package dockerfile:build dockerfile:push
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true package dockerfile:build dockerfile:push
