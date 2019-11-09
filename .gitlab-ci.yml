@@ -27,5 +27,7 @@ test:
 
 build:
   stage: build
+  services:
+    - docker:dind
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true package dockerfile:build dockerfile:push
