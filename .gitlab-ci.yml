@@ -3,7 +3,7 @@ image: maven:latest
 stages:
   - compile
   - test
-  - image_docker
+  - build
 
 cache:
   paths:
@@ -25,8 +25,20 @@ test:
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab test
 
+jar:
+  stage: build
+  variables:
+    - BUILD_VERSION: ""
+  script:
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true clean package
+    - BUILD_VERSION=$(mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout)
+  artifacts:
+    paths:
+     - target/${APP_NAME}-${BUILD_VERSION}.jar
+    expire_in: 30 days
+
 image_docker:
-  stage: image_docker
+  stage: build
   when: manual
   services:
     - docker:dind
