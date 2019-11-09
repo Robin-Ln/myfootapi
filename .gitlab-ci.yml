@@ -30,7 +30,7 @@ jar:
   variables:
     - BUILD_VERSION: ""
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true clean package
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
     - BUILD_VERSION=$(mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout)
   artifacts:
     paths:
