@@ -202,7 +202,6 @@
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-                        <PROFILE>gitlab</PROFILE>
                     </buildArgs>
                     <contextDirectory>./</contextDirectory>
                 </configuration>
