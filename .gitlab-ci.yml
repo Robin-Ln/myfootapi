@@ -3,7 +3,7 @@ image: maven:latest
 stages:
   - compile
   - test
-  - install
+  - image_docker
 
 cache:
   paths:
@@ -25,8 +25,9 @@ test:
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab test
 
-install:
-  stage: install
+image_docker:
+  stage: image_docker
+  when: manual
   services:
     - docker:dind
   script:
