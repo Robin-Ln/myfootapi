@@ -10,7 +10,7 @@
     </parent>
     <groupId>fr.bretagne.louarn</groupId>
     <artifactId>myFootApi</artifactId>
-    <version>1.5.0-SNAPSHOT</version>
+    <version>1.5.0</version>
     <name>myFootApi</name>
     <description>Demo project for Spring Boot</description>
 
