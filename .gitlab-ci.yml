@@ -29,7 +29,3 @@ build:
   stage: build
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab -Dmaven.test.skip=true clean package dockerfile:build dockerfile:push
-  artifacts:
-    paths:
-     - target/${APP_NAME}-${BUILD_VERSION}.jar
-    expire_in: 30 days
