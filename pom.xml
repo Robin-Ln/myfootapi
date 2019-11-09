@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>fr.bretagne.louarn</groupId>
-    <artifactId>myFootApi</artifactId>
+    <artifactId>my-foot-api</artifactId>
     <version>1.5.0-SNAPSHOT</version>
     <name>myFootApi</name>
     <description>Demo project for Spring Boot</description>
@@ -34,9 +34,8 @@
 
     <properties>
         <java.version>11</java.version>
-        <docker.repository>robinln/my-foot-api</docker.repository>
-        <docker.username>robinln</docker.username>
-        <docker.password>220090Atm22!</docker.password>
+        <docker.repository.prefix>robinln</docker.repository.prefix>
+        <docker.token>c51bdbaf-babe-4ba5-b1ff-452b1a86e5a8</docker.token>
     </properties>
 
     <dependencies>
@@ -196,9 +195,9 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.9</version>
                 <configuration>
-                    <username>${docker.username}</username>
-                    <password>${docker.password}</password>
-                    <repository>${docker.repository}</repository>
+                    <username>${docker.repository.prefix}</username>
+                    <password>${docker.token}</password>
+                    <repository>${docker.repository.prefix}/${project.artifactId}</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
