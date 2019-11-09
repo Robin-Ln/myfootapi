@@ -28,13 +28,13 @@ test:
 jar:
   stage: build
   variables:
-    - BUILD_VERSION: ""
+    - BUILD_FILE_NAME: ""
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
-    - BUILD_VERSION=$(mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout)
+    - BUILD_FILE_NAME=$(mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout)
   artifacts:
     paths:
-     - target/${APP_NAME}-${BUILD_VERSION}.jar
+     - target/${BUILD_FILE_NAME}.jar
     expire_in: 30 days
 
 image_docker:
