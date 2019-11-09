@@ -45,7 +45,7 @@ test:
 #
 #  when: manual
 #  before_script:
-#    - docker login -u robinln -p 220090Atm22!
+#    - docker login --username=robinln --password=220090Atm22!
 #  script:
 #    - echo $BUILD_VERSION
 #    - docker build \
@@ -55,3 +55,9 @@ test:
 #      -f docker/Dockerfile .
 #    - docker tag app robinln/my-foot-api:${BUILD_VERSION}
 #    - docker push robinln/my-foot-api:${BUILD_VERSION}
+#    Tester cette partie de code
+#    - cd docker
+#    - docker login --username=yourhubusername --password=yourpassword
+#    - docker build -t $DOCKER_ACC/$DOCKER_REPO:$IMG_TAG .
+#    - sudo docker push $DOCKER_ACC/$DOCKER_REPO:$IMG_TAG
+

@@ -2,7 +2,6 @@ package fr.bretagne.louarn.myfootapi.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.bretagne.louarn.myfootapi.config.properties.FootballApiProperties;
-import fr.bretagne.louarn.myfootapi.logging.LoggingInterceptor;
 import lombok.extern.log4j.Log4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -39,9 +38,7 @@ public class RestClient {
         // Création du logger
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(log::info);
         httpLoggingInterceptor.level(footballApiProperties.getLevel());
-        // TODO : faire cette configiration dans un fichier de properties
         httpLoggingInterceptor.redactHeader(API_KEY);
-
         OkHttpClient httpClient = new OkHttpClient
                 .Builder()
                 .addInterceptor(chain -> {
@@ -51,8 +48,8 @@ public class RestClient {
                     return chain.proceed(request);
                 })
                 // Ajout d'un logger
-                //.addInterceptor(httpLoggingInterceptor)
-                .addInterceptor(new LoggingInterceptor(HttpLoggingInterceptor.Level.BODY, log::info))
+                .addInterceptor(httpLoggingInterceptor)
+                //.addInterceptor(new LoggingInterceptor(HttpLoggingInterceptor.Level.BODY, log::info))
                 .build();
         return new Retrofit.Builder()
                 .baseUrl(footballApiProperties.getBasePath())
