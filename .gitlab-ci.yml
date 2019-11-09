@@ -27,7 +27,6 @@ test:
 
 build_jar:
   stage: build
-  when: manual
   script:
     - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
   artifacts:
