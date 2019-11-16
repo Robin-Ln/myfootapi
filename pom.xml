@@ -31,12 +31,18 @@
                 <activatedProperties>gitlab</activatedProperties>
             </properties>
         </profile>
+        <profile>
+            <id>dockerhub</id>
+            <properties>
+                <docker.repository.login>robinln</docker.repository.login>
+                <docker.repository.prefix>${docker.repository.login}</docker.repository.prefix>
+                <docker.token>c51bdbaf-babe-4ba5-b1ff-452b1a86e5a8</docker.token>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>
         <java.version>11</java.version>
-        <docker.repository.prefix>robinln</docker.repository.prefix>
-        <docker.token>c51bdbaf-babe-4ba5-b1ff-452b1a86e5a8</docker.token>
     </properties>
 
     <dependencies>
@@ -196,7 +202,7 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.9</version>
                 <configuration>
-                    <username>${docker.repository.prefix}</username>
+                    <username>${docker.repository.login}</username>
                     <password>${docker.token}</password>
                     <repository>${docker.repository.prefix}/${project.artifactId}</repository>
                     <tag>${project.version}</tag>

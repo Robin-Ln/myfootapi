@@ -35,11 +35,11 @@ build_jar:
       - target/*.jar
     expire_in: 30 days
 
-build_image:
+build_image_dockerhub:
   stage: build
   when: manual
   services:
     - docker:dind
   script:
     - export DOCKER_HOST=tcp://docker:2375
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true install
+    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true -Dspring.profiles.active=dockerhub install
