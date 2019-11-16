@@ -43,8 +43,8 @@
             <id>googlecloud</id>
             <properties>
                 <docker.repository.login>robin.louarn@gmail.com</docker.repository.login>
-                <docker.repository.prefix>eu.gcr.io/${docker.repository.login}</docker.repository.prefix>
-                <docker.token>220090Atm22!</docker.token>
+                <docker.repository.prefix>eu.gcr.io/my-foot-api</docker.repository.prefix>
+                <docker.token>3e4fb1073c14fb26218195b8e7734797cb2a1d7f</docker.token>
             </properties>
         </profile>
     </profiles>
