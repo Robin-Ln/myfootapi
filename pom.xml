@@ -43,7 +43,7 @@
             <id>googlecloud</id>
             <properties>
                 <docker.repository.login>gitlab-ci@my-foot-api.iam.gserviceaccount.com</docker.repository.login>
-                <docker.repository.prefix>eu.gcr.io/my-foot-api</docker.repository.prefix>
+                <docker.repository.prefix>eu.gcr.io/my-foot-bucket</docker.repository.prefix>
                 <docker.token>4e04f61d1b937401c672c8f18169112ec04a5016</docker.token>
             </properties>
         </profile>
