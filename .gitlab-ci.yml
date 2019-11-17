@@ -50,6 +50,8 @@ build_image_googlecloud:
   when: manual
   services:
     - docker:dind
+  variables:
+    GOOGLE_APPLICATION_CREDENTIALS: $CI_PROJECT_DIR/credentials.json
   script:
     - export DOCKER_HOST=tcp://docker:2375
-    - mvn --batch-mode -Dmaven.test.skip=true -P googlecloud install
+    - mvn -X --batch-mode -Dmaven.test.skip=true -P googlecloud install
