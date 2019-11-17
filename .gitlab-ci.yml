@@ -37,7 +37,6 @@ build_jar:
 
 build_image_dockerhub:
   stage: build
-  when: manual
   services:
     - docker:dind
   script:
