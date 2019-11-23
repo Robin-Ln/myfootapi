@@ -4,11 +4,6 @@ stages:
   - build
   - image
 
-before_script:
-  - mkdir tmp
-  - echo '#!/bin/bash' > tmp/varriables.sh
-  - chmod +x tmp/varriables.sh
-
 cache:
   paths:
     - .m2/
@@ -35,6 +30,10 @@ test:
 build_jar:
   image: maven:latest
   stage: build
+  before_script:
+    - mkdir tmp
+    - echo '#!/bin/bash' > tmp/varriables.sh
+    - chmod +x tmp/varriables.sh
   script:
     - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true package
     - echo VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> tmp/varriables.sh
