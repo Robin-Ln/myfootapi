@@ -31,25 +31,6 @@
                 <activatedProperties>gitlab</activatedProperties>
             </properties>
         </profile>
-        <profile>
-            <id>dockerhub</id>
-            <properties>
-                <docker.repository.login>robinln</docker.repository.login>
-                <docker.repository.prefix>${docker.repository.login}</docker.repository.prefix>
-                <docker.token>c51bdbaf-babe-4ba5-b1ff-452b1a86e5a8</docker.token>
-                <isGoogle>false</isGoogle>
-            </properties>
-        </profile>
-        <profile>
-            <id>googlecloud</id>
-            <properties>
-                <docker.repository.login></docker.repository.login>
-                <docker.repository.prefix></docker.repository.prefix>
-                <docker.token></docker.token>
-                <docker.repository.prefix>eu.gcr.io/my-foot-api</docker.repository.prefix>
-                <isGoogle>true</isGoogle>
-            </properties>
-        </profile>
     </profiles>
 
     <properties>
@@ -205,34 +186,6 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-            </plugin>
-
-            <!-- Docker -->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.13</version>
-                <configuration>
-                    <username>${docker.repository.login}</username>
-                    <password>${docker.token}</password>
-                    <repository>${docker.repository.prefix}/${project.artifactId}</repository>
-                    <tag>${project.version}</tag>
-                    <buildArgs>
-                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
-                    <googleContainerRegistryEnabled>${isGoogle}</googleContainerRegistryEnabled>
-                    <contextDirectory>./</contextDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>push</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

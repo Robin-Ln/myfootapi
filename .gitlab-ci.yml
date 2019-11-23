@@ -1,11 +1,73 @@
-image: maven:latest
-
 stages:
+  - compile
   - test
+  - build
+  - image
+
+before_script:
+  - mkdir tmp
+  - echo '#!/bin/bash' > tmp/varriables.sh
+  - chmod +x tmp/varriables.sh
+
+cache:
+  paths:
+    - .m2/
+    - target/
+    - tmp/
+
+compile:
+  image: maven:latest
+  stage: compile
+  script:
+    - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true compile
 
 test:
+  image: maven:latest
   stage: test
+  services:
+    - mysql:latest
+  variables:
+    MYSQL_DATABASE: "footapi"
+    MYSQL_ROOT_PASSWORD: "1azerty."
   script:
-    - echo $DOCKER_TOKKEN
-    - echo $GOOGLE_KEY
-    - ls $GOOGLE_KEY
+    - mvn --batch-mode -Dmaven.repo.local=.m2 -P gitlab test
+
+build_jar:
+  image: maven:latest
+  stage: build
+  script:
+    - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true package
+    - echo VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> tmp/varriables.sh
+    - echo BUILD_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout) >> tmp/varriables.sh
+    - echo PROJECT_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout) >> tmp/varriables.sh
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 30 days
+
+build_image_dockerhub:
+  stage: image
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+  before_script:
+    - docker login -u $DOCKER_USER -p $DOCKER_TOKKEN
+  script:
+    - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar \
+      -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} \
+      -f docker/Dockerfile .
+    - docker push ${DOCKER_USER}/${PROJECT_NAME}:${VERSION}
+
+
+build_image_googlecloud:
+  stage: image
+  when: manual
+  services:
+    - docker:dind
+  variables:
+    GOOGLE_APPLICATION_CREDENTIALS: $CI_PROJECT_DIR/credentials.json
+  script:
+    - export DOCKER_HOST=tcp://docker:2375
+    - mvn -X --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true -P googlecloud install
