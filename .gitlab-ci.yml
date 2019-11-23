@@ -51,6 +51,7 @@ build_image_dockerhub:
   variables:
     DOCKER_HOST: tcp://docker:2375
   before_script:
+    - ./tmp/varriables.sh
     - docker login -u $DOCKER_USER -p $DOCKER_TOKKEN
   script:
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar \
