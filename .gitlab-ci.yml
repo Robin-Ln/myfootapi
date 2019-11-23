@@ -31,7 +31,6 @@ build_jar:
   image: maven:latest
   stage: build
   before_script:
-    - mkdir tmp
     - echo '#!/bin/bash' > tmp/varriables.sh
     - chmod +x tmp/varriables.sh
   script:
