@@ -54,6 +54,11 @@ build_image_dockerhub:
     - /bin/sh tmp/varriables.sh
     - echo "$DOCKER_TOKKEN" | docker login --username $DOCKER_USER --password-stdin
   script:
+    - echo target/${BUILD_NAME}.jar
+    - echo ${DOCKER_USER}
+    - echo ${PROJECT_NAME}
+    - echo ${VERSION}
+    - ls target
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar \
       -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} \
       -f docker/Dockerfile .
