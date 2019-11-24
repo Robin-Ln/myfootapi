@@ -60,6 +60,9 @@ build_image_dockerhub:
     - echo ${DOCKER_USER}
     - echo ${PROJECT_NAME}
     - echo ${VERSION}
+    - echo $DOCKER_USER
+    - echo $PROJECT_NAME
+    - echo $VERSION
     - ls target
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar \
       -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} \
