@@ -52,7 +52,7 @@ build_image_dockerhub:
     DOCKER_HOST: tcp://docker:2375
   before_script:
     - /bin/sh tmp/varriables.sh
-    - echo "$DOCKER_TOKKEN" | docker login --username $$DOCKER_USER --password-stdin
+    - echo "$DOCKER_TOKKEN" | docker login --username $DOCKER_USER --password-stdin
   script:
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar \
       -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} \
