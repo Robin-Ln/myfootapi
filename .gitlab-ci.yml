@@ -44,15 +44,15 @@ build_jar:
     expire_in: 30 days
 
 build_image_dockerhub:
-  stage: image
   image: docker:latest
+  stage: image
   services:
     - docker:dind
   variables:
     DOCKER_HOST: tcp://docker:2375
   before_script:
-    - ./tmp/varriables.sh
-    - docker login -u $DOCKER_USER -p $DOCKER_TOKKEN
+    - /bin/bash tmp/varriables.sh
+    - echo "$DOCKER_TOKKEN" | docker login --username $$DOCKER_USER --password-stdin
   script:
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar \
       -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} \
@@ -61,12 +61,16 @@ build_image_dockerhub:
 
 
 build_image_googlecloud:
+  image: docker:latest
   stage: image
   when: manual
   services:
     - docker:dind
   variables:
-    GOOGLE_APPLICATION_CREDENTIALS: $CI_PROJECT_DIR/credentials.json
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_SERVER: eu.gcr.io
   script:
-    - export DOCKER_HOST=tcp://docker:2375
-    - mvn -X --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true -P googlecloud install
+    - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar \
+      -t ${DOCKER_SERVER}/${DOCKER_USER}/${PROJECT_NAME}:${VERSION} \
+      -f docker/Dockerfile .
+    - docker push ${DOCKER_SERVER}/${DOCKER_USER}/${PROJECT_NAME}:${VERSION}
