@@ -54,7 +54,7 @@ build_image_dockerhub:
     - /bin/sh tmp/varriables.sh
     - echo "$DOCKER_TOKKEN" | docker login --username $DOCKER_USER --password-stdin
   script:
-    - /bin/sh tmp/varriables.sh
+    - ./tmp/varriables.sh
     - cat tmp/varriables.sh
     - echo target/${BUILD_NAME}.jar
     - echo ${DOCKER_USER}
