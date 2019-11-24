@@ -35,9 +35,9 @@ build_jar:
     - chmod +x tmp/varriables.sh
   script:
     - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true package
-    - echo VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> tmp/varriables.sh
-    - echo BUILD_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout) >> tmp/varriables.sh
-    - echo PROJECT_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout) >> tmp/varriables.sh
+    - echo export VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> tmp/varriables.sh
+    - echo export BUILD_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout) >> tmp/varriables.sh
+    - echo export PROJECT_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout) >> tmp/varriables.sh
   artifacts:
     paths:
       - target/*.jar
