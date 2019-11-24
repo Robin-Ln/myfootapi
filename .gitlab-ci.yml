@@ -12,14 +12,12 @@ cache:
 build_jar:
   image: maven:latest
   stage: build
-  before_script:
-    - echo '#!/bin/sh' > tmp/varriables.sh
-    - chmod +x tmp/varriables.sh
+
   script:
     - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true package
-    - echo export VERSION="$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> tmp/varriables.sh
-    - echo export BUILD_NAME="$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout)" >> tmp/varriables.sh
-    - echo export PROJECT_NAME="$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> tmp/varriables.sh
+    - echo export VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> tmp/varriables.sh
+    - echo export BUILD_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout) >> tmp/varriables.sh
+    - echo export PROJECT_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout) >> tmp/varriables.sh
   artifacts:
     paths:
       - target/*.jar
@@ -33,10 +31,9 @@ build_image_dockerhub:
   variables:
     DOCKER_HOST: tcp://docker:2375
   before_script:
-    - /bin/sh tmp/varriables.sh
+    - source tmp/varriables.sh
     - echo "$DOCKER_TOKKEN" | docker login --username $DOCKER_USER --password-stdin
   script:
-    - ./tmp/varriables.sh
     - cat tmp/varriables.sh
     - echo target/${BUILD_NAME}.jar
     - echo ${DOCKER_USER}
