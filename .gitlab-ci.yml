@@ -54,19 +54,3 @@ image_dockerhub:
   script:
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} -f docker/Dockerfile .
     - docker push ${DOCKER_USER}/${PROJECT_NAME}:${VERSION}
-
-
-image_googlecloud:
-  image: docker:latest
-  stage: image
-  when: manual
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_SERVER: eu.gcr.io
-  script:
-    - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar \
-      -t ${DOCKER_SERVER}/${DOCKER_USER}/${PROJECT_NAME}:${VERSION} \
-      -f docker/Dockerfile .
-    - docker push ${DOCKER_SERVER}/${DOCKER_USER}/${PROJECT_NAME}:${VERSION}
