@@ -43,7 +43,6 @@ build:
 image_dockerhub:
   image: docker:latest
   stage: image
-  when: manual
   services:
     - docker:dind
   variables:
