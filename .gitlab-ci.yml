@@ -1,45 +1,55 @@
-image: maven:latest
-
 stages:
   - compile
   - test
   - build
+  - image
 
 cache:
   paths:
     - .m2/
     - target/
+    - tmp/
 
 compile:
+  image: maven:latest
   stage: compile
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true compile
+    - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true compile
 
 test:
+  image: maven:latest
   stage: test
   services:
     - mysql:latest
   variables:
-    MYSQL_DATABASE: "gitlab"
-    MYSQL_ROOT_PASSWORD: "gitlab"
+    MYSQL_DATABASE: "footapi"
+    MYSQL_ROOT_PASSWORD: "1azerty."
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -P gitlab test
+    - mvn --batch-mode -Dmaven.repo.local=.m2 -P gitlab test
 
-jar:
+build:
+  image: maven:latest
   stage: build
   script:
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true package
+    - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true package
+    - echo VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> tmp/varriables.sh
+    - echo BUILD_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout) >> tmp/varriables.sh
+    - echo PROJECT_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout) >> tmp/varriables.sh
   artifacts:
     paths:
       - target/*.jar
-      - varrables
     expire_in: 30 days
 
-image_docker:
-  stage: build
-  when: manual
+image_dockerhub:
+  image: docker:latest
+  stage: image
   services:
     - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+  before_script:
+    - source tmp/varriables.sh
+    - echo "$DOCKER_TOKKEN" | docker login --username $DOCKER_USER --password-stdin
   script:
-    - export DOCKER_HOST=tcp://docker:2375
-    - mvn -Dmaven.repo.local=.m2 --batch-mode -Dmaven.test.skip=true install
+    - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} -f docker/Dockerfile .
+    - docker push ${DOCKER_USER}/${PROJECT_NAME}:${VERSION}

@@ -9,8 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>fr.bretagne.louarn</groupId>
-    <artifactId>myFootApi</artifactId>
-    <version>1.5.0</version>
+
+    <artifactId>my-foot-api</artifactId>
+    <version>1.6.0-SNAPSHOT</version>
     <name>myFootApi</name>
     <description>Demo project for Spring Boot</description>
 
@@ -25,6 +26,12 @@
             </activation>
         </profile>
         <profile>
+            <id>prod</id>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
             <id>gitlab</id>
             <properties>
                 <activatedProperties>gitlab</activatedProperties>
@@ -34,9 +41,6 @@
 
     <properties>
         <java.version>11</java.version>
-        <docker.repository>robinln/my-foot-api</docker.repository>
-        <docker.username>robinln</docker.username>
-        <docker.password>220090Atm22!</docker.password>
     </properties>
 
     <dependencies>
@@ -188,33 +192,6 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-            </plugin>
-
-            <!-- Docker -->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.9</version>
-                <configuration>
-                    <username>${docker.username}</username>
-                    <password>${docker.password}</password>
-                    <repository>${docker.repository}</repository>
-                    <tag>${project.version}</tag>
-                    <buildArgs>
-                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
-                    <contextDirectory>./</contextDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>push</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

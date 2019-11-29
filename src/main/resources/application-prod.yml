@@ -1,11 +1,11 @@
 spring:
   jpa:
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: update
     open-in-view: true
   datasource:
-    url: jdbc:mysql://mysql:3306/footapi
+    url: jdbc:mysql://35.228.228.114:3306/footapi
     username: root
-    password: 1azerty.
+    password: rvEgz9l1kc81wA07
 
 football-data-api:
   basePath: https://api.football-data.org/v2/
