@@ -6,16 +6,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 
-import static fr.bretagne.louarn.myfootapi.constant.AppConstant.REST_PRODUCE_JSON;
-
-@Api("Test Contreoller")
+@Api("Test Controller")
 public interface ITestController {
 
-    @ApiOperation(value = "Test", response = String.class, produces = REST_PRODUCE_JSON)
+    @ApiOperation(value = "Test")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Informations de retour en cas de succès"),
-            @ApiResponse(code = 400, message = "En cas d'erreur fonctionnelle"),
-            @ApiResponse(code = 500, message = "Erreur interne")
+            @ApiResponse(code = 200, message = "Informations de retour en cas de succès")
     })
     ResponseEntity<String> test();
 

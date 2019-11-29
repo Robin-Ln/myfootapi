@@ -1,4 +1,4 @@
-package fr.bretagne.louarn.myfootapi.service.security;
+package fr.bretagne.louarn.myfootapi.service.security.impl;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
