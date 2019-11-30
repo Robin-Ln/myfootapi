@@ -1,5 +1,6 @@
 package fr.bretagne.louarn.myfootapi.config.security;
 
+import fr.bretagne.louarn.myfootapi.filters.JwtRequestFilter;
 import fr.bretagne.louarn.myfootapi.service.security.IUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,22 +11,28 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private IUserDetailsService userDetailsService;
+    private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
-    public WebSecurityConfig(IUserDetailsService userDetailsService) {
+    public WebSecurityConfig(IUserDetailsService userDetailsService,
+                             JwtRequestFilter jwtRequestFilter) {
         this.userDetailsService = userDetailsService;
+        this.jwtRequestFilter = jwtRequestFilter;
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
 
     @Override
@@ -36,16 +43,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-                .authorizeRequests()
-                    .antMatchers("/security/authenticate").permitAll()
-                .anyRequest()
-                    .authenticated()
-                    .and()
-                .exceptionHandling()
-                    .and()
-                .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable()
+                    .authorizeRequests()
+                        .antMatchers("/security/authenticate").permitAll()
+                    .anyRequest()
+                        .authenticated()
+                        .and()
+                    .exceptionHandling()
+                        .and()
+                    .sessionManagement()
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
 }

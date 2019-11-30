@@ -11,3 +11,6 @@ football-data-api:
   basePath: https://api.football-data.org/v2/
   apiKey: 5a2c20184d344d278b11894ab7e3ede1
   level: BODY
+
+app:
+  secret: prod
