@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 public class AuthenticationResponse implements Serializable {
 
     private String jwt;
