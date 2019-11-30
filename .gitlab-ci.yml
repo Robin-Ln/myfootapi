@@ -39,9 +39,10 @@ build:
   stage: build
   script:
     - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true package
-    - echo VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> VARRIABLES_FILE
-    - echo BUILD_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout) >> VARRIABLES_FILE
-    - echo PROJECT_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout) >> VARRIABLES_FILE
+    - echo VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> ${VARRIABLES_FILE}
+    - echo BUILD_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout) >> ${VARRIABLES_FILE}
+    - echo PROJECT_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout) >> ${VARRIABLES_FILE}
+    - TEST=test
   artifacts:
     paths:
       - target/*.jar
@@ -55,6 +56,7 @@ image_dockerhub:
   variables:
     DOCKER_HOST: tcp://docker:2375
   before_script:
+    - echo $TEST
     - source ${VARRIABLES_FILE}
     - echo "$DOCKER_TOKKEN" | docker login --username $DOCKER_USER --password-stdin
   script:
