@@ -1,4 +1,4 @@
-package fr.bretagne.louarn.myfootapi.dto.request;
+package fr.bretagne.louarn.myfootapi.dto.security.request;
 
 import lombok.Builder;
 import lombok.Getter;

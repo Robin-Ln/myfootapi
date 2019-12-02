@@ -1,7 +1,7 @@
 package fr.bretagne.louarn.myfootapi.controller.security;
 
-import fr.bretagne.louarn.myfootapi.dto.request.AuthenticationRequest;
-import fr.bretagne.louarn.myfootapi.dto.responce.AuthenticationResponse;
+import fr.bretagne.louarn.myfootapi.dto.security.request.AuthenticationRequest;
+import fr.bretagne.louarn.myfootapi.dto.security.responce.AuthenticationResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

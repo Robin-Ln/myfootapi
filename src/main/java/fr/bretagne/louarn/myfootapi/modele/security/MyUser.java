@@ -1,9 +1,6 @@
 package fr.bretagne.louarn.myfootapi.modele.security;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +14,7 @@ import static fr.bretagne.louarn.myfootapi.constant.AppConstant.SEQUENCE;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "user")
 public class MyUser implements Serializable {
 

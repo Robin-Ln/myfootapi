@@ -1,7 +1,7 @@
 package fr.bretagne.louarn.myfootapi.service.security.impl;
 
-import fr.bretagne.louarn.myfootapi.dto.request.AuthenticationRequest;
-import fr.bretagne.louarn.myfootapi.dto.responce.AuthenticationResponse;
+import fr.bretagne.louarn.myfootapi.dto.security.request.AuthenticationRequest;
+import fr.bretagne.louarn.myfootapi.dto.security.responce.AuthenticationResponse;
 import fr.bretagne.louarn.myfootapi.service.security.IAuthenticateService;
 import fr.bretagne.louarn.myfootapi.service.security.IJwtservice;
 import fr.bretagne.louarn.myfootapi.service.security.IUserDetailsService;

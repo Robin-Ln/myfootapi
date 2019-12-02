@@ -1,8 +1,8 @@
 package fr.bretagne.louarn.myfootapi.controller.security.impl;
 
 import fr.bretagne.louarn.myfootapi.controller.security.IAuthenticateController;
-import fr.bretagne.louarn.myfootapi.dto.request.AuthenticationRequest;
-import fr.bretagne.louarn.myfootapi.dto.responce.AuthenticationResponse;
+import fr.bretagne.louarn.myfootapi.dto.security.request.AuthenticationRequest;
+import fr.bretagne.louarn.myfootapi.dto.security.responce.AuthenticationResponse;
 import fr.bretagne.louarn.myfootapi.service.security.IAuthenticateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

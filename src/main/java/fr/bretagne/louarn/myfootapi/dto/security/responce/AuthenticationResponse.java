@@ -1,4 +1,4 @@
-package fr.bretagne.louarn.myfootapi.dto.responce;
+package fr.bretagne.louarn.myfootapi.dto.security.responce;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
