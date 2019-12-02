@@ -21,18 +21,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private IUserDetailsService userDetailsService;
     private JwtRequestFilter jwtRequestFilter;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public WebSecurityConfig(IUserDetailsService userDetailsService,
-                             JwtRequestFilter jwtRequestFilter) {
+                             JwtRequestFilter jwtRequestFilter,
+                             PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.jwtRequestFilter = jwtRequestFilter;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override

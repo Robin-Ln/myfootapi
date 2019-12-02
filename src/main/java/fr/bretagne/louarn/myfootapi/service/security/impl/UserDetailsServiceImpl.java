@@ -17,11 +17,13 @@ import java.util.ArrayList;
 public class UserDetailsServiceImpl implements IUserDetailsService {
 
     private IUserRepository userRepository;
-
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserDetailsServiceImpl(IUserRepository userRepository) {
+    public UserDetailsServiceImpl(IUserRepository userRepository,
+                                  PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
