@@ -1,6 +1,6 @@
-package fr.bretagne.louarn.myfootapi.controller.impl;
+package fr.bretagne.louarn.myfootapi.controller.security.impl;
 
-import fr.bretagne.louarn.myfootapi.controller.IAuthenticateController;
+import fr.bretagne.louarn.myfootapi.controller.security.IAuthenticateController;
 import fr.bretagne.louarn.myfootapi.dto.request.AuthenticationRequest;
 import fr.bretagne.louarn.myfootapi.dto.responce.AuthenticationResponse;
 import fr.bretagne.louarn.myfootapi.service.security.IAuthenticateService;
