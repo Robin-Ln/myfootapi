@@ -46,15 +46,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable()
-                    .authorizeRequests()
-                        .antMatchers("/security/authenticate").permitAll()
-                    .anyRequest()
-                        .authenticated()
-                        .and()
-                    .exceptionHandling()
-                        .and()
-                    .sessionManagement()
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .authorizeRequests()
+                .antMatchers("/security/authenticate").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .exceptionHandling()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
 }

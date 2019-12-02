@@ -2,6 +2,7 @@ spring:
   jpa:
     hibernate.ddl-auto: update
     open-in-view: true
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
     url: jdbc:mysql://35.228.228.114:3306/footapi
     username: root
