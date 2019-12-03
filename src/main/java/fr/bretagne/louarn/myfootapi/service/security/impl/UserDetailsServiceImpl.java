@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +16,11 @@ import java.util.ArrayList;
 public class UserDetailsServiceImpl implements IUserDetailsService {
 
     private IUserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserDetailsServiceImpl(IUserRepository userRepository,
                                   PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -34,9 +31,7 @@ public class UserDetailsServiceImpl implements IUserDetailsService {
                     String message = String.format("L'utilisateur %s n'existe pas", username);
                     return new UsernameNotFoundException(message);
                 });
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return User.builder()
-                .passwordEncoder(encoder::encode)
                 .username(myUser.getUsername())
                 .password(myUser.getPassword())
                 .authorities(new ArrayList<>())
