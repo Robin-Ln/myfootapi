@@ -18,8 +18,17 @@ Pour configurer la profile spring il faut utiliser la varraible d'env : SPRING_P
 
 * Exemple de comande docker pour lancer la stack :
 
-```  docker run image -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 ```
+`docker run image -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080`
 
 ### Lambok
 
 ### Mapstruc
+
+
+### Google cloud 
+
+#### Auth
+
+`gcloud auth activate-service-account gitlab-ci@my-foot-api.iam.gserviceaccount.com --key-file Downloads/my-foot-api-30a520882638.json`
+
+`GOOGLE_APPLICATION_CREDENTIALS`
