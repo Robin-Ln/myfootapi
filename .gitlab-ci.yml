@@ -57,7 +57,28 @@ image_dockerhub:
     DOCKER_HOST: tcp://docker:2375
   before_script:
     - source ${VARRIABLES_FILE}
-    - echo "$DOCKER_TOKKEN" | docker login --username $DOCKER_USER --password-stdin
+    - docker login --username $DOCKER_USER --password-stdin $DOCKER_TOKKEN
   script:
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} -f docker/Dockerfile .
+    - docker tag ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} ${DOCKER_USER}/${PROJECT_NAME}:latest
     - docker push ${DOCKER_USER}/${PROJECT_NAME}:${VERSION}
+    - docker push ${DOCKER_USER}/${PROJECT_NAME}:latest
+
+image_google_cloud:
+  image: docker:latest
+  stage: image
+  when: manual
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    GOOGLE_CLOUD_HOST: eu.gcr.io
+    GOOGLE_CLOUD_PROJECT_NAME: my-foot-api
+  before_script:
+    - source ${VARRIABLES_FILE}
+    - docker login -u $GOOGLE_CLOUD_ACCOUNT --password-stdin https://eu.gcr.io < $GOOGLE_APPLICATION_CREDENTIALS
+  script:
+    - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar -t ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION} -f docker/Dockerfile .
+    - docker tag ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION} ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:latest
+    - docker push ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION}
+    - docker push ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:latest
