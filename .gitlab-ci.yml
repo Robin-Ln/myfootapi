@@ -76,7 +76,7 @@ image_google_cloud:
     GOOGLE_CLOUD_PROJECT_NAME: my-foot-api
   before_script:
     - source ${VARRIABLES_FILE}
-    - cat $GOOGLE_APPLICATION_CREDENTIALS | docker login -u $GOOGLE_CLOUD_ACCOUNT --password-stdin https://eu.gcr.io
+    - docker login -u $GOOGLE_CLOUD_ACCOUNT --password-stdin $GOOGLE_CLOUD_TOKKEN https://eu.gcr.io
   script:
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar -t ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION} -f docker/Dockerfile .
     - docker tag ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION} ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:latest
