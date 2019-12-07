@@ -1,4 +1,7 @@
 spring:
+  cloud.gcp.sql:
+    instance-connection-name: mysql
+    database-name: footapi
   jpa:
     hibernate.ddl-auto: create
     open-in-view: true
