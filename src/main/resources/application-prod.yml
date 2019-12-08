@@ -1,13 +1,14 @@
 spring:
   cloud.gcp.sql:
-    instance-connection-name: my-foot-api:europe-north1:my-foot-bdd-prod
+    instance-connection-name: foot-api:europe-west1:foot-bdd-prod
     database-name: footapi
   jpa:
     hibernate.ddl-auto: update
     open-in-view: true
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
     username: root
-    password: rvEgz9l1kc81wA07
+    password: oqkwHBOmdpc6JMfv
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 football-data-api:
