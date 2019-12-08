@@ -57,7 +57,7 @@ image_dockerhub:
     DOCKER_HOST: tcp://docker:2375
   before_script:
     - source ${VARRIABLES_FILE}
-    - docker login --username $DOCKER_USER --password-stdin $DOCKER_TOKKEN
+    - echo $DOCKER_TOKKEN | docker login -u $DOCKER_USER --password-stdin
   script:
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar -t ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} -f docker/Dockerfile .
     - docker tag ${DOCKER_USER}/${PROJECT_NAME}:${VERSION} ${DOCKER_USER}/${PROJECT_NAME}:latest
@@ -76,7 +76,7 @@ image_google_cloud:
     GOOGLE_CLOUD_PROJECT_NAME: my-foot-api
   before_script:
     - source ${VARRIABLES_FILE}
-    - docker login -u $GOOGLE_CLOUD_ACCOUNT --password $GOOGLE_CLOUD_TOKKEN https://eu.gcr.io
+    - echo $GOOGLE_CLOUD_TOKKEN | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io
   script:
     - docker build --build-arg JAR_FILE=target/${BUILD_NAME}.jar -t ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION} -f docker/Dockerfile .
     - docker tag ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION} ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:latest
