@@ -29,6 +29,8 @@ Pour configurer la profile spring il faut utiliser la varraible d'env : SPRING_P
 
 #### Auth
 
+`gcloud auth print-access-token`
+
 `gcloud auth activate-service-account gitlab-ci@my-foot-api.iam.gserviceaccount.com --key-file Downloads/my-foot-api-30a520882638.json`
 
 `GOOGLE_APPLICATION_CREDENTIALS`
