@@ -1,13 +1,20 @@
 spring:
+  cloud.gcp.sql:
+    instance-connection-name: foot-api:europe-west1:foot-bdd-prod
+    database-name: footapi
   jpa:
     hibernate.ddl-auto: update
     open-in-view: true
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
-    url: jdbc:mysql://35.228.228.114:3306/footapi
     username: root
-    password: rvEgz9l1kc81wA07
+    password: oqkwHBOmdpc6JMfv
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 football-data-api:
   basePath: https://api.football-data.org/v2/
   apiKey: 5a2c20184d344d278b11894ab7e3ede1
   level: BODY
+
+app:
+  secret: prod
