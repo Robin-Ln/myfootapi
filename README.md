@@ -18,7 +18,7 @@ Pour configurer la profile spring il faut utiliser la varraible d'env : SPRING_P
 
 * Exemple de comande docker pour lancer la stack :
 
-`docker run image -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080`
+`docker run image -e "ENV=prod" -p 8080:8080`
 
 ### Lambok
 

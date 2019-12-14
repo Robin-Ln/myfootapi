@@ -1,7 +1,4 @@
 spring:
-  cloud.gcp.sql:
-    instance-connection-name: localhost
-    database-name: footapi
   jpa:
     hibernate.ddl-auto: update
     open-in-view: true
