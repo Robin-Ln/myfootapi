@@ -83,5 +83,12 @@ image_google_cloud:
     - docker push ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION}
     - docker push ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:latest
 
-release:
+sonarcube:
+  image: maven:latest
+  stage: test
+  when: manual
+  before_script:
+    - source ${VARRIABLES_FILE}
+  script:
+    - mvn sonar:sonar -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=http://$SONAR_HOST -Dsonar.login=$SONAR_TOKEN
 
