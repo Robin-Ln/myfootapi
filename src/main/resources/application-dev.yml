@@ -1,7 +1,4 @@
 spring:
-  cloud.gcp.sql:
-    instance-connection-name: localhost
-    database-name: footapi
   jpa:
     hibernate.ddl-auto: update
     open-in-view: true
@@ -9,12 +6,10 @@ spring:
     url: jdbc:mysql://localhost:3306/footapi
     username: root
     password: 1azerty.
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
 football-data-api:
   basePath: https://api.football-data.org/v2/
   apiKey: 5a2c20184d344d278b11894ab7e3ede1
   level: BODY
 
-app:
-  secret: dev
+app.secret: dev

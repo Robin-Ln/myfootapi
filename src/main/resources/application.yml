@@ -1,6 +1,2 @@
-spring.profiles.active: @activatedProperties@
-springfox.documentation.swagger.v2.path: /swagger.json
-
-management.server.port: 8080
-
+spring.profiles.active: @env@
 server.port: 8080
