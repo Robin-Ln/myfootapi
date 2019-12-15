@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.9.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.2.2.RELEASE</version>
+        <relativePath />
     </parent>
     <groupId>fr.bretagne.louarn</groupId>
 
     <artifactId>my-foot-api</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
     <name>myFootApi</name>
     <description>Demo project for Spring Boot</description>
+
+    <scm>
+        <connection>scm:git:git@gitlab.com:Robin-Ln/myfootapi.git</connection>
+        <developerConnection>scm:git:git@gitlab.com:Robin-Ln/myfootapi.git</developerConnection>
+        <url>https://gitlab.com/Robin-Ln/myfootapi</url>
+  </scm>
 
     <profiles>
         <profile>
             <id>dev</id>
             <properties>
-                <activatedProperties>dev</activatedProperties>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <activatedProperties>prod</activatedProperties>
+                <env>dev</env>
             </properties>
         </profile>
         <profile>
             <id>gitlab</id>
             <properties>
-                <activatedProperties>gitlab</activatedProperties>
+                <env>gitlab</env>
             </properties>
         </profile>
     </profiles>
@@ -47,20 +43,18 @@
 
         <!--  dependencies version -->
         <mapstruct.version>1.3.1.Final</mapstruct.version>
+        <jwt.vertion>0.9.1</jwt.vertion>
+        <retrofit.version>2.7.0</retrofit.version>
+        <retrofit-okhttp3.version>4.2.2</retrofit-okhttp3.version>
+        <kotlin-reflect.version>1.3.61</kotlin-reflect.version>
+        <jackson-module-kotlin.version>2.10.1</jackson-module-kotlin.version>
+        <log4j.version>1.2.17</log4j.version>
+        <commons-lang3.version>3.0</commons-lang3.version>
+        <swagger.version>2.9.2</swagger.version>
+        <swagger-ui.version>2.9.2</swagger-ui.version>
+        <easymock.version>4.1</easymock.version>
 
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-gcp-dependencies</artifactId>
-                <version>1.1.2.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <repositories>
         <repository>
@@ -71,16 +65,6 @@
     </repositories>
 
     <dependencies>
-
-        <!-- Gooble cloud -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.cloud.sql</groupId>
-            <artifactId>mysql-socket-factory</artifactId>
-        </dependency>
 
         <!-- Spring -->
         <dependency>
@@ -148,34 +132,34 @@
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit</artifactId>
-            <version>2.3.0</version>
+            <version>${retrofit.version}</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-jackson</artifactId>
-            <version>2.6.2</version>
+            <version>${retrofit.version}</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>logging-interceptor</artifactId>
-            <version>4.2.2</version>
+            <version>${retrofit-okhttp3.version}</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>4.2.2</version>
+            <version>${retrofit-okhttp3.version}</version>
         </dependency>
 
         <!-- Kotlin -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
-            <version>1.2.71</version>
+            <version>${kotlin-reflect.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
-            <version>2.10.0</version>
+            <version>${jackson-module-kotlin.version}</version>
         </dependency>
 
 
@@ -183,33 +167,33 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.0</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!-- log4j -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
 
         <!-- swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.0.2</version>
+            <version>${swagger-ui.version}</version>
         </dependency>
 
         <!-- easymock -->
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
-            <version>4.0.2</version>
+            <version>${easymock.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -217,7 +201,7 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <version>${jwt.vertion}</version>
         </dependency>
 
         <!-- mapstruct -->
@@ -270,7 +254,26 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
+                <version>4.0.0</version>
+                <configuration>
+                    <useNativeGit>true</useNativeGit>
+                </configuration>
             </plugin>
+
+            <!-- Help plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+
+            <!-- Version plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+
         </plugins>
     </build>
 
