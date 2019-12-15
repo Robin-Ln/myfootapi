@@ -33,7 +33,6 @@ test:
     MYSQL_ROOT_PASSWORD: "1azerty."
     ENV: "gitlab"
   script:
-    - ENV=gitlab
     - mvn --batch-mode -Dmaven.repo.local=.m2 -P gitlab test
 
 build:
