@@ -10,7 +10,7 @@
     <groupId>fr.bretagne.louarn</groupId>
 
     <artifactId>my-foot-api</artifactId>
-    <version>1.7.0-SNAPSHOT</version>
+    <version>1.7.0</version>
     <name>myFootApi</name>
     <description>Demo project for Spring Boot</description>
 
