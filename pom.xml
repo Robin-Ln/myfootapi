@@ -15,6 +15,12 @@
     <name>myFootApi</name>
     <description>Demo project for Spring Boot</description>
 
+    <scm>
+        <connection>scm:git:git@gitlab.com:Robin-Ln/myfootapi.git</connection>
+        <developerConnection>scm:git:git@gitlab.com:Robin-Ln/myfootapi.git</developerConnection>
+        <url>https://gitlab.com/Robin-Ln/myfootapi</url>
+    </scm>
+
     <profiles>
         <profile>
             <id>dev</id>
