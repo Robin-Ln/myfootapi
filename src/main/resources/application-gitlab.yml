@@ -1,7 +1,4 @@
 spring:
-  cloud.gcp.sql:
-    instance-connection-name: mysql
-    database-name: footapi
   jpa:
     hibernate.ddl-auto: create
     open-in-view: true
@@ -15,5 +12,4 @@ football-data-api:
   apiKey: 5a2c20184d344d278b11894ab7e3ede1
   level: BODY
 
-app:
-  secret: gitlab
+app.secret: gitlab
