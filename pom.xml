@@ -10,7 +10,7 @@
     <groupId>fr.bretagne.louarn</groupId>
 
     <artifactId>my-foot-api</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.7.0-SNAPSHOT</version>
     <name>myFootApi</name>
     <description>Demo project for Spring Boot</description>
 
@@ -18,7 +18,6 @@
         <connection>scm:git:git@gitlab.com:Robin-Ln/myfootapi.git</connection>
         <developerConnection>scm:git:git@gitlab.com:Robin-Ln/myfootapi.git</developerConnection>
         <url>https://gitlab.com/Robin-Ln/myfootapi</url>
-      <tag>HEAD</tag>
   </scm>
 
     <profiles>
