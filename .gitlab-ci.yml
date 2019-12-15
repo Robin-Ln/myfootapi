@@ -39,9 +39,9 @@ build:
   stage: build
   script:
     - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true package
-    - echo VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout) >> ${VARRIABLES_FILE}
-    - echo BUILD_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.build.finalName -q -DforceStdout) >> ${VARRIABLES_FILE}
-    - echo PROJECT_NAME=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.artifactId -q -DforceStdout) >> ${VARRIABLES_FILE}
+    - echo VERSION=$(mvn help:evaluate  -Dexpression=project.version -q -DforceStdout) >> ${VARRIABLES_FILE}
+    - echo BUILD_NAME=$(mvn help:evaluate  -Dexpression=project.build.finalName -q -DforceStdout) >> ${VARRIABLES_FILE}
+    - echo PROJECT_NAME=$(mvn help:evaluate  -Dexpression=project.artifactId -q -DforceStdout) >> ${VARRIABLES_FILE}
   artifacts:
     paths:
       - target/*.jar
@@ -82,3 +82,6 @@ image_google_cloud:
     - docker tag ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION} ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:latest
     - docker push ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:${VERSION}
     - docker push ${GOOGLE_CLOUD_HOST}/${GOOGLE_CLOUD_PROJECT_NAME}/${PROJECT_NAME}:latest
+
+release:
+
