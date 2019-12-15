@@ -25,6 +25,9 @@
                     <value>dev</value>
                 </property>
             </activation>
+            <properties>
+                <env>dev</env>
+            </properties>
         </profile>
         <profile>
             <id>gitlab</id>
@@ -34,6 +37,9 @@
                     <value>gitlab</value>
                 </property>
             </activation>
+            <properties>
+                <env>gitlab</env>
+            </properties>
         </profile>
     </profiles>
 
