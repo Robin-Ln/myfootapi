@@ -9,6 +9,7 @@ cache:
     - .m2/
     - target/
     - ${TMP_DIR}/
+    - .sonar/cache
 
 before_script:
   - mkdir -p ${TMP_DIR}
@@ -86,9 +87,14 @@ image_google_cloud:
 sonarcube:
   image: maven:latest
   stage: test
-  when: manual
+  variables:
+    SONAR_USER_HOME: ${CI_PROJECT_DIR}/.sonar  # Defines the location of the analysis task cache
+      GIT_DEPTH: 0  # Tells git to fetch all the branches of the project, required by the analysis task
   before_script:
     - source ${VARRIABLES_FILE}
   script:
-    - mvn sonar:sonar -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=http://$SONAR_HOST -Dsonar.login=$SONAR_TOKEN
-
+    - mvn verify sonar:sonar -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN
+#  only:
+#    - merge_requests
+#    - master
+#    - develop
