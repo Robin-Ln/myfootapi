@@ -93,7 +93,7 @@ sonarcube:
   before_script:
     - source ${VARRIABLES_FILE}
   script:
-    - mvn verify sonar:sonar -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN
+    - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN verify sonar:sonar
 #  only:
 #    - merge_requests
 #    - master
