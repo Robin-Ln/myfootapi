@@ -87,13 +87,17 @@ image_google_cloud:
 sonarcube:
   image: maven:latest
   stage: test
+  services:
+    - mysql:latest
   variables:
+    MYSQL_DATABASE: "footapi"
+    MYSQL_ROOT_PASSWORD: "1azerty."
     SONAR_USER_HOME: ${CI_PROJECT_DIR}/.sonar  # Defines the location of the analysis task cache
     GIT_DEPTH: 0  # Tells git to fetch all the branches of the project, required by the analysis task
   before_script:
     - source ${VARRIABLES_FILE}
   script:
-    - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN verify sonar:sonar
+    - mvn --batch-mode -Dmaven.repo.local=.m2 -Dmaven.test.skip=true -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN -P gitlab verify sonar:sonar
 #  only:
 #    - merge_requests
 #    - master
